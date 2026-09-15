@@ -1,75 +1,32 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import { RootStackParamList } from "./types";
+import { colors } from "../theme/colors";
 import HomeScreen from "../screens/HomeScreen";
-
+import ScreenerScreen from "../screens/ScreenerScreen";
+import TradeDetailsScreen from "../screens/TradeDetailsScreen";
+ 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
-function ScreenerPlaceholder({ navigation }: any) {
-  return (
-    <View style={styles.placeholder}>
-      <Text style={styles.placeholderText}>Latest Trades / Screener</Text>
-
-      <Button
-        title="Open a sample trade"
-        onPress={() =>
-          navigation.navigate("TradeDetails", {
-            tradeId: "trade-nova-01",
-          })
-        }
-      />
-    </View>
-  );
-}
-
-function TradeDetailsPlaceholder({ route }: any) {
-  return (
-    <View style={styles.placeholder}>
-      <Text style={styles.placeholderText}>Trade Details</Text>
-      <Text>tradeId: {route.params.tradeId}</Text>
-    </View>
-  );
-}
-
+ 
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-
-        <Stack.Screen
-          name="Screener"
-          component={ScreenerPlaceholder}
-          options={{ title: "Screener" }}
-        />
-
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.textPrimary,
+          contentStyle: { backgroundColor: colors.background },
+        }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Screener" component={ScreenerScreen} options={{ title: "Screener" }} />
         <Stack.Screen
           name="TradeDetails"
-          component={TradeDetailsPlaceholder}
-          options={{ title: "Trade Details" }}
+          component={TradeDetailsScreen}
+          options={({ route }) => ({ title: route.params.tradeId })}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  placeholder: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 16,
-  },
-
-  placeholderText: {
-    fontSize: 18,
-    fontWeight: "600",
-  },
-});

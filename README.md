@@ -130,5 +130,4 @@ The application was developed, reviewed and tested by me during development.
 https://github.com/ironbat106/insider-activity-mobile-prototype
 
 **Google Drive:**
-*     *
-
+https://drive.google.com/drive/folders/1M9rr6NfOz5BQ1UD8KMDbiW6QjuK1cgYt?usp=sharing
